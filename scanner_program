@@ -1,6 +1,16 @@
-sudo apt install gparted
+---XSane
 sudo apt update
-sudo apt install snap
-sudo reboot
-sudo snap install core
-sudo snap install simpre/scan
+sudo apt install xsane sane
+
+
+---simple-scan
+lsusb
+
+sudo apt update
+sudo apt install libsane-common sane-utils simple-scan
+
+sudo scanimage -L
+
+scanimage --format=png --mode color --resolution=150 > test.png
+
+apt-cache policy libsane-common
