@@ -15,3 +15,30 @@ sudo nano /etc/default/keyboard
 # now set XKBLAYOUT to "gb"
 # save and reboot
 # Can also edit /etc/default/locale
+
+---Update sorces
+nano /etc/apt/sources.list
+# See https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/
+deb http://http.kali.org/kali kali-rolling main contrib non-free
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+# Additional line for source packages
+# deb-src http://http.kali.org/kali kali-rolling main contrib non-free
+
+
+
+---Raspbarry pi imager
+sudo apt install --no-install-recommends build-essential devscripts debhelper cmake git libarchive-dev libcurl4-openssl-dev \
+    qtbase5-dev qtbase5-dev-tools qtdeclarative5-dev libqt5svg5-dev qttools5-dev libssl-dev \
+    qml-module-qtquick2 qml-module-qtquick-controls2 qml-module-qtquick-layouts qml-module-qtquick-templates2 qml-module-qtquick-window2 qml-module-qtgraphicaleffects
+
+git clone --depth 1 https://github.com/raspberrypi/rpi-imager
+
+export DEB_BUILD_OPTIONS="parallel=1"
+
+cd rpi-imager
+debuild -uc -us
+
+cd ..
+sudo apt install ./rpi-imager*.deb
+
