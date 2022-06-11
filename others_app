@@ -2,5 +2,8 @@
 wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
 
 --- BG Language pack
-
  dpkg-reconfigure locales 
+
+--- Chasova sona
+sudo dpkg-reconfigure tzdata
+
