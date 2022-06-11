@@ -1,0 +1,28 @@
+
+sudo apt-get update && sudo apt-get dist-upgrade -y
+sudo apt install -y nvidia-driver nvidia-cuda-toolkit
+
+--1
+sudo apt-get update && sudo apt-get dist-upgrade -y
+sudo apt install -y nvidia-driver nvidia-cuda-toolkit
+--2
+sudo rm /etc/xdg/autostart/xcompmgr.desktop
+sudo reboot
+sudo raspi-config
+  --Adcancet Option
+  --Composition
+  --Jes
+sudo apt update && sudo apt install-imager
+sudo cd /boot
+sudo nano config.txt
+  -- dobavqme v kraq 
+  dtoverlay=VC4-fkms-v3d
+  max_framebuffers=2
+  gpu_mem_1024
+  arm_control=0x200
+  aver_voltage=6
+  arm_freq=2000
+  gpu_freq=600
+  hdmi_ignore_edid_audio=1
+  hdmi_ignore_edid_audio=0
+  -sud-bcm2835.enable_hdmi=0
