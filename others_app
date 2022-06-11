@@ -49,3 +49,5 @@ sudo apt-get install v4l-utils
 
 ---OBS
 sudo apt-get install obs-studio -y
+CAM4 StreamKEY: 64e0cf7f-4b58-4444-9067-6d0c4756437a
+
