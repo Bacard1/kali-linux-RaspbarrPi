@@ -45,5 +45,7 @@ sudo apt install ./rpi-imager*.deb
 ---Logitech C920 Linux Driver 
 sudo apt-get install v4l-utils
 
+---WebCam 
+
 ---OBS
 sudo apt-get install obs-studio -y
