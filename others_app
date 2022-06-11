@@ -1,2 +1,6 @@
 --- Pi Apps
 wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+
+--- BG Language pack
+
+ dpkg-reconfigure locales 
