@@ -46,7 +46,39 @@ sudo apt install ./rpi-imager*.deb
 sudo apt-get install v4l-utils
 
 ---WebCam 
+sudo apt-get install cheese -y
 
+ls -ltr /dev/video*
+
+  --    you will find an output like this:
+    crw-rw----+ 1 root video 81, 0 Nov 11 09:06 /dev/video0
+
+mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 30
+
+sudo apt-get install hwinfo -y
+
+hwinfo --usb
+
+sudo modprobe gspca_zc3xx
+
+ls /dev/video*
+/dev/video0
+  
+sudo apt-get install cheese
+
+cheese
+
+   -record video
+     mencoder tv:// -tv driver=v4l2:width=320:height=240:device=/dev/video0 -nosound -ovc lavc -o myvideo.avi
+   
+   streamer -c /dev/video0 -f jpeg -F stereo -o myvideo.avi -t 0:05
+   
+   
+   -watch it
+   mplayer -fps 30 -cache 128 -tv driver=v4l2:width=640:height=480:device=/dev/video0 tv://
+   
+   
+   
 ---OBS
 sudo apt-get install obs-studio -y
 CAM4 StreamKEY: 64e0cf7f-4b58-4444-9067-6d0c4756437a
