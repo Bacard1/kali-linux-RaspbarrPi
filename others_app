@@ -7,3 +7,6 @@ wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bas
 --- Chasova sona
 sudo dpkg-reconfigure tzdata
 
+---LibreOffice 
+sudo apt install libreoffice
+
