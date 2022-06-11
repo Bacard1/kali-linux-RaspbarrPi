@@ -77,5 +77,6 @@ cheese
    -watch it
    mplayer -fps 30 -cache 128 -tv driver=v4l2:width=640:height=480:device=/dev/video0 tv://
    
-   
-   
+---Screen Recorder Kazam
+sudo apt install kazam -y
+
