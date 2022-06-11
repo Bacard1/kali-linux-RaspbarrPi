@@ -1,6 +1,6 @@
 sudo apt install gparted
 sudo apt update
-sudo apt install snapd
+sudo apt install snap
 sudo reboot
 sudo snap install core
 sudo snap install simpre/scan
