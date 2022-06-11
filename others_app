@@ -83,3 +83,85 @@ cheese
 sudo apt-get install obs-studio -y
 CAM4 StreamKEY: 64e0cf7f-4b58-4444-9067-6d0c4756437a
 
+   --NVENC Support For Linux
+   igured it out! Quick-and-dirty build instructions from memory here:
+
+    Make sure latest nVidia binary drivers are installed
+    Download nVidia Video SDK referenced in https://trac.ffmpeg.org/wiki/HWAccelIntro
+    Unpack the SDK, copy Samples/common/inc/*.h to /usr/local/include (as per http://developer.download.nvidia.com/compute/redist/ffmpeg/1511-patch/FFMPEG-with-NVIDIA-Acceleration-on-Ubuntu_UG_v01.pdf)
+
+    Then, in a temporary folder:
+
+    sudo apt-get build-dep ffmpeg
+    git clone https://anonscm.debian.org/git/pkg-multimedia/ffmpeg.git
+    vim ffmpeg/debian/rules
+
+    Under the 'CONFIG' list with all the build options, add:
+
+    --enable-nonfree \
+    --enable-nvenc
+
+    (don't forget to add a \ to the end of --enable-x11grab to keep it all on one virtual line)
+
+    I also had to create a file here to work around a depenency bug later:
+     echo 'libva 1 libva1' > ffmpeg/debian/shlibs.local
+
+    Then you should be able to build ffmpeg:
+    $ cd ffmpeg
+    $ debuild -us -uc -b
+
+    Whole bunch of config & compile stuff later... we have everything we need, BUT, it seems that blindly installing *all* the .debs is bad, as there's a conflict if you do. So you should be fine to remove the one extra and install the rest:
+    $ cd ..
+    $ rm libavcodec57_3.0.1-3_amd64.deb
+    $ sudo dpkg -i *.deb
+
+    Hopefully, no conflicts there, so try running:
+
+    $ ffmpeg -codecs | grep nvenc
+
+    And you should see:
+    DEV.LS h264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (decoders: h264 h264_crystalhd h264_vdpau ) (encoders: libx264 libx264rgb nvenc nvenc_h264 )
+    DEV.L. hevc H.265 / HEVC (High Efficiency Video Coding) (encoders: libx265 nvenc_hevc )
+
+    Get back up to your temp folder and now grab OBS:
+    $ cd ..
+    $ apt-get source obs-studio
+    $ sudo apt-get build-dep obs-studio
+    (don't worry that a bunch of stuff is missing - try to install what you can by hand, ignore all the '-ffmpeg-dev' stuff)
+
+    Note: If you can't seem to pull the source despite having added the OBS PPA, check /etc/apt/sources.list.d - there'll be an OBS related .list file in there. Uncomment the 'deb-src' line, re-run apt-get update, and try again!
+
+    $ cd obs-studio-0.14.1.1
+
+    Now, OBS is still depending on virtual packages from 15.10 and earlier that appear to have been removed in Xenial/16.04! - thankfully, our ffmpeg build + install does actually have those dependencies, but the packages are named:
+
+    libavformat-dev
+    libavcodec-dev
+    etc.
+
+    Instead of:
+
+    libavformat-ffmpeg-dev
+    libavcodec-ffmpeg-dev
+
+    All we have to do is tweak OBS' build rules:
+
+    $ vim debian/control
+    Then find-and-replace out all the '-ffmpeg' instances (e.g. :%s/-ffmpeg//g)
+
+    Time to build OBS:
+    $ debuild -us -uc -b
+    $ cd ..
+    $ dpkg -i obs-studio_0.14.1.1-358~wily_amd64.deb
+
+    If all went well, you should now see NVENC in the Output settings!
+
+    2016-04-25-OBS-NVENC-Linux-1.png
+
+
+    Note: You probably also want to run 'sudo apt-mark hold obs-studio' here to stop your newly-installed build from being clobbered by the binary package from the PPA. However, you'll need to keep an eye on the OBS site for updates manually, pull the sources when they do occur, and recompile as above!
+
+    One thing I've noticed: I did a quick test recording and then played it back with VLC: The first ~10 seconds or so tend to be mangled, until it hits a keyframe or something, and then it snaps back into focus. Could just be VLC, though, and it's relatively minor.
+
+    Also, I did this using the old v5.0.1 of the nVidia SDK I had installed from previous experiments. If someone wants to try this with their relatively newly released v6.0.1 instead and report back, it would be awesome! Best of luck! :)
+
