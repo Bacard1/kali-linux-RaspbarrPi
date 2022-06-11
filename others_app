@@ -10,3 +10,8 @@ sudo dpkg-reconfigure tzdata
 ---LibreOffice 
 sudo apt install libreoffice
 
+--- Default Option Keyboard
+sudo nano /etc/default/keyboard
+# now set XKBLAYOUT to "gb"
+# save and reboot
+# Can also edit /etc/default/locale
