@@ -85,35 +85,6 @@ sudo apt-get update && sudo apt-get upgrade
 apt-get install gparted -y
 
 ---NTFS Configuration
-	sudo fdisk -l
-
-	--Format or reformat the entire disk
-	sudo fdisk /dev/sda
-
-	--Format the partition
-	sudo mkfs.FILETYPE DEVICE
-
-	sudo mkfs.ext4 /dev/sda1
-	sudo mkfs.vfat /dev/sda1
-	sudo mkfs.ntfs /dev/sda1
-
-	--Find the virtual drive name
-	sudo fdisk -l
-
-	--Mount the drive
-	sudo mkdir /media/usb
-
-	sudo mount /dev/sda1 /media/usb -o umask=000
-
-	--Unmount the drive
-	sudo umount /media/usb
-
-	--Automatic mount on boot
-	sudo blkid
-
-	sudo nano /etc/fstab
-
-	PARTUUID=b951dfde-01 /media/usb ntfs defaults,umask=000 0 0
 
 
 ---Github
