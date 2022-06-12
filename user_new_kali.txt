@@ -26,3 +26,83 @@ Updating Kali
 You should update the Kali Linux system as soon as possible with every reboot or make some basic changes for more stable and secure. You can update and upgrade the Kali with the command below.
 
 sudo apt-get update && apt-get upgrade -y
+
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+Raspberry Pi set user interface
+You want your Raspberry Pi (Raspbian Jessie) to boot from the command line, or you want the graphical interface to start automatically. Generally, you can set that with the tool “raspi-config”. But it is only on the command line.
+Let’s see what is currently being started.
+systemctl show default.target
+
+If the output in the first line gives “id = multi-user.target”, then Raspberry Pi starts with the command line. If the output in the first line is “Id = graphical.target”, then Raspberry Pi starts with the graphical user interface.
+Finish the ad with CTRL + C:
+If the command line should be started:
+
+sudo systemctl set-default multi-user.target
+
+If the graphical user interface is to be started:
+
+sudo systemctl set-default graphical.target
+
+
+After that a restart is necessary.Raspberry Pi Lock / Disable user and deleteDeleting a user may cause one or the other to stop working as normal. In various places a user can be configured or preset. So it may be that, for example, entries in the “/ etc / crontab” or “sudoers” need to be changed. One is therefore forced to make extensive adjustments if necessary. Therefore, it should usually be enough to disable a user.
+task
+
+    Lock or disable user.
+    Delete user.
+
+Root privileges
+
+It is recommended to work with root rights ..
+
+sudo -i
+
+You can return to the previous session with “exit”.
+Solution: lock / unlock userIf you just want to prevent the user from logging in, it will be enough to lock your password. That means he can not log in anymore.
+
+usermod -L {USERNAME}
+
+passwd -l {USERNAME}
+
+For internal processes (also cron jobs) the user can continue to be used.
+Solution: Delete userIf you definitely want to delete a user, then the following procedure is recommended. First you save the user directory of the respective user.
+Before deleting, all processes that are still running under the user must be terminated.
+
+killall -u {USERNAME}
+
+Then you can really delete the user.
+
+userdel -r {USERNAME}
+
+
+Solution: Change user password of “pi”
+
+The configuration program “raspi-config” makes it possible to change the password of the user “pi” very easily and quickly.
+
+sudo raspi-config
+
+Alternatively it is possible to make the change via the command line, if you are logged in as user “pi”. Note “spaces” at the beginning of the command.
+
+passwd
+
+Or if you want to change the password for another user. Note “spaces” at the beginning of the command.
+
+sudo passwd {USERNAME}
+
+“passwd” requires entering the old password and entering the new password twice. The new password will then be valid at the next login.
+Solution: Create root passwordFirst we switch to the user “root”.
+
+sudo -i
+
+Now we have to set a password for “root”.
+
+passwd
+
+The same procedure applies as with the user password. You can return to the previous session with “exit”.
+
+Solution: Delete root password
+
+Since you can get root privileges in Raspbian at any time with the user “pi” with the command line suffix “sudo”, you do not need a password for “root”. Once you have set it up, you can delete it as follows.
+
+sudo passwd -d root
