@@ -1,0 +1,140 @@
+Solution: Root rights in the default configuration
+In the default configuration of Raspbian (Images as of the end of 2014), no password is set for the user “root”. For this, the default user “pi” can work with root rights via “sudo”. And without restrictions.
+“sudo” is generally referred to as “super user do”. However, “sudo” stands for “substitute user do”. With “sudo” you can execute commands with the rights of any user, not just “root”. Assuming you have root privileges.
+
+
+sudo {COMMANDO}
+
+
+Solution: Switch to “root”
+However, it can be quite annoying to always write “sudo” before any action. Therefore, there are ways to become “root” temporarily or permanently to make system-wide changes.
+
+
+sudo -s
+sudo su
+sudo su -
+
+
+Solution: install “sudo”
+In general, “sudo” is installed on multiuser distributions. However, it may happen that it is not the case. Then you can install it later.
+
+
+apt-get update
+apt-get install sudo
+
+
+Solution: Restrict root privileges (query user password)
+Normally, the user “pi” is only asked for his password when logging in. After that, he is no longer asked for his password. If the user then leaves his workplace, anyone can work on this system without restriction. Also with root rights by means of “sudo”. The idea is to restrict the permissions so that the user “pi” is occasionally asked for his password when using “sudo”.
+To do this, make sure that the user “pi” is assigned to the user group “sudo”.
+
+
+sudo gpasswd -a pi sudo
+
+
+In principle, this makes any other user a system administrator.
+However, this change will only take effect after the user has logged out and back in, provided that the user “pi” was not already in the user group “sudo”.
+
+
+id pi
+
+
+Then we change the sudo user control (sudoers) with “visudo”. This will edit a file that you should never edit directly.
+sudo visudo
+
+Responsible for the password query when using “sudo” is the following line. It should be included in the configuration file.
+
+
+% sudo ALL = (ALL: ALL) ALL
+
+
+In the configuration file, we change the following line:
+
+
+pi ALL = (ALL) NOPASSWD: ALL
+
+
+in
+
+
+#pi ALL = (ALL) NOPASSWD: ALL
+
+
+Solution: Activate root account
+In general, Raspbian does a good job of disabling the root account and administering the system exclusively as user “pi” using “sudo” or “su”. However, there are reasons to create a password for the user “root” and thus activate the root account. For example, if untrusted users have access to Raspberry Pi. The unnoticed could activate the root account and drive further mischief.
+Therefore, if  Raspberry Pi is used as a multi-user environment, the root account should be activated.
+
+The activation of the root account is done by giving the user “root” a password.
+
+
+sudo su
+passwd
+
+
+Note: If you activate the root account, this also activates the root access via SSH. Of course this depends on the SSH server configuration. For security reasons, it makes sense to configure the SSH server so that a login via “root” is NOT possible.
+
+    Secure SSH server on Raspberry Pi
+
+Solution: Root user rights only with root password
+We want a user to gain root privileges as usual with the command prompt “sudo”. When using “sudo” additionally the root password should be queried and thus a double security be established.
+A user should be able to use “sudo” only if he knows the root password. To do this, we need to make sure that the root account is enabled, so that “root” has a password.
+
+As a user “pi” you can use “su” to become the user “root”.
+
+
+sudo su
+
+
+If the root password is NOT asked at this point, then none is set up. That should be done on the spot.
+
+
+passwd
+
+
+After entering the password and the confirmation, you leave “root”.
+exit
+
+Then you try again.
+
+
+sudo su
+
+
+Now “su” will not let us become “root” until the root password has been entered correctly. Then you can enter as “root” all commands without “sudo”.
+
+As “root” we add “pi” first to the user group “sudo” if the user “pi” is not already assigned.
+
+
+gpasswd -a pi sudo
+
+
+Then we add a parameter in the sudo user control (sudoers).
+
+
+visudo
+
+
+Here you insert the following line:
+Defaults rootpw
+
+This setting ensures that when using “sudo” not the user password, but the root password is queried.
+After the change, save and close the file: Ctrl + O, Return, Ctrl + X.
+
+Then you leave the user “root”.
+
+Solution: Disable root account
+In the following way you bring the root account back to the “disabled” state.
+
+First you have to remove “Defaults rootpw” via “visudo”. If that is still in it, if you delete the root password, then you can use as a normal user no “sudo” more. And logging in as “root” may not work anymore.
+Only when you have ensured that “sudo” no longer asks for the root password, then you can delete the root password.
+
+
+sudo passwd -d root
+
+
+Note: Difference between “sudo” or “su”?
+With the help of “sudo” one can execute commands with the rights of each user. As a rule, you use “sudo” to execute commands with the rights of “root”.
+
+With the help of “su” you can switch to any user and then work with his rights. In general, one changes with “sudo su” to “root”, in order to execute commands with its rights.
+
+The difference depends on whether you want to execute once with “sudo” command with the rights of another user, or if you switch with “su” to another user and executes all subsequent commands with its rights. Of course, you can also use “sudo” to execute all commands with the rights of another user. Changing the user with “su” is often more convenient because you can do without “sudo”.
+Extensions
