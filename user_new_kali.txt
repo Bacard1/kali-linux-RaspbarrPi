@@ -1,0 +1,28 @@
+The user will be created usinguseraddthe command. Then we will set the password with the passwd command. The -m command will create the user’s home directory on kali. It will enable login with the user you created.
+sudo useradd -m username // add -m new user
+
+sudo passwd username // creating a password for the user we created
+sudo useradd -m username // add -m new user
+
+
+Adding to Sudo Group
+
+In this section, we will add the user to the sudo group and finally change the default shell of the newly added user to bash.
+sudo usermod -a -G sudo username
+
+sudo chsh -s /bin/bash username
+sudo usermod -a -G sudo username
+
+
+Using The su Command
+We can switch to the user we created using the su command.
+ 	
+su username
+
+
+
+Updating Kali
+
+You should update the Kali Linux system as soon as possible with every reboot or make some basic changes for more stable and secure. You can update and upgrade the Kali with the command below.
+
+sudo apt-get update && apt-get upgrade -y
