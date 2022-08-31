@@ -1,0 +1,200 @@
+https://monoclecam.com/monocle-gateway/install/linux-raspi
+
+Install Monocle Gateway on Linux (RaspberryPi)
+Supported Operating System & Hardware
+The Monocle Gateway application/service is supported on:
+
+RaspberryPi 3B+ running RaspberryPi OS (Buster) 32-bit (ARMv8)
+RaspberryPi 4B running RaspberryPi OS (Buster) 32-bit (ARMv8)
+
+Note: The Monocle Gateway will typically work on earlier Raspberry Pi models; however, we only test on 3B+/4B models. Using a physical/hardwired Ethernet connection over WiFi is always recommended.
+
+This build is not intended for ARM64 based operating systems! Please visit this page for ARM64 support.
+
+Attention: RaspberryPi OS (64-Bit) Beta Users
+We have successfully installed and tested Monocle Gateway running on RaspberryPi OS (64-bit) BETA.
+Please visit this page for ARM64 support on RaspberryPi.
+
+Requirements & Prerequisites
+Please review the following system prerequsites:
+
+Monocle Gateway Prerequistes
+Installation Instructions
+Please follow the instructions below to install and setup your Monocle Gateway service.
+
+Note: The following instructions are using the Debian installer package. If you would prefer to use a bash script installation method, please visit this page.
+
+1.) Download latest Monocle Gateway
+
+Download the latest Monocle Gateway build for your system here. Make sure to download the Debian installer package: *.deb > Monocle Gateway - Download Latest Release
+
+This is a special build compiled specifically for compatibility across the Raspberry Pi 32-bit platform and various models.
+
+ 
+
+Note: SHA1 and MD5 Hashes are available here
+
+Or use the following command to download the latest Monocle Gateway build directly to your system:
+
+curl -O https://files.monoclecam.com/monocle-gateway/raspberrypi/monocle-gateway-linux-raspi-v0.0.4.deb
+2.) Create Configuration Directory.
+
+Use the following command to create the monocle system configuration directory:
+
+sudo mkdir /etc/monocle
+3.) Monocle API token for Authentication
+
+Generate and download your Monocle API token from your user account page in the Monocle web portal. See this topic for more details on how to generate your API token: Monocle API Token
+
+Once you have downloaded your monocle API token file, move or copy it to the Monocle system configuration directory: /etc/monocle/monocle.token
+
+4.) Install Monocle Gateway.
+
+To install the Monocle Gateway service use the dpkg utility and the downloaded monocle-gateway-linux-raspi-v0.0.4.deb file by entering the following command:
+
+sudo dpkg -i monocle-gateway-linux-raspi-v0.0.4.deb
+The following is an example of the installation process.
+
+Selecting previously unselected package monocle-gateway.
+(Reading database ... 135169 files and directories currently installed.)
+Preparing to unpack monocle-gateway-linux-raspi-v0.0.4.deb ...
+-----------------------------------
+Installing Monocle Gateway
+-----------------------------------
+Creating 'monocle' system user account
+Creating configuration directory at '/etc/monocle/'
+Unpacking monocle-gateway (0.0.4) ...
+Setting up monocle-gateway (0.0.4) ...
+Configuring bind access to system reserved port 443
+Reloading systemd daemon
+Starting Monocle Gateway service daemon
+Enabling Monocle Gateway service deamon to start automatically
+Created symlink /etc/systemd/system/multi-user.target.wants/monocle-gateway.service → /etc/systemd/system/monocle-gateway.service.
+-----------------------------------
+Monocle Gateway Installed
+-----------------------------------
+5.) Confirm Monocle Gateway is Running
+
+View the Monocle Gateway log to from command line to verify it's running and working properly. Make sure to look for any errors on startup that may indicate a problem that would prevent Monocle Gateway from working correctly.
+
+monocle-gateway --tail
+If Monocle Gateway starts up successfully and established a connection to the Monocle platform , then you will get a print out that looks similar to the following:
+
+ ******************************************************************
+ *             __  __  ___  _  _  ___   ___ _    ___              *
+ *            |  \/  |/ _ \| \| |/ _ \ / __| |  | __|             *
+ *            | |\/| | (_) | .` | (_) | (__| |__| _|              *
+ *            |_|  |_|\___/|_|\_|\___/ \___|____|___|             *
+ *                                                                *
+ ******************************************************************
+
+-------------------------------------------------
+MONOCLE RUNTIME ENVIRONMENT
+-------------------------------------------------
+VERSION   = 0.0.4
+OS/ARCH   = linux/arm
+PROCESS   = monocle-gateway (PID=9652)
+TIMESTAMP = 2018-06-08T18:36:04.256Z
+
+-------------------------------------------------
+MONOCLE GATEWAY SERVICE         (Version: 0.0.4)
+-------------------------------------------------
+[Monocle Starting]
+[Monocle Connecting]
+[Monocle Started]
+[RTSP Server Starting]
+[RTSP Server Listening] 0.0.0.0:8555 (RTSP)
+[RTSP Server Listening] 0.0.0.0:443 (RTSP-TLS)
+[RTSP Proxy Started] (PID=468)
+[RTSP Server Listening] 0.0.0.0:8554 (PROXY)
+[RTSP Server Started]
+[Monocle Connected]
+[RTSP Server Registered]
+
+-------------------------------------------------
+MONOCLE RTSP SERVICE - INITIALIZED
+-------------------------------------------------
+FQDN = c5b4w3q2-bv4f-4sdf9-dsf-28a852ecae54.mproxy.io
+HOST = 192.168.1.22
+PORT = 443
+-------------------------------------------------
+Look for the MONOCLE RTSP SERVICE - INITIALIZED message; this means that everything started successfully and the gateway is fully running.  
+
+6.) Configure one or more cameras for use with the Monocle Gateway service.
+
+The Monocle web portal has not yet been updated to include a user interface for configuring which cameras should use the Monocle Gateway service.
+
+Please see the Tagging Cameras for Monocle Gateway topic for the interim solution.
+
+7.) Test your configured cameras with the Monocle Gateway service.
+
+Now you are ready to test our your camera(s) using your Alexa device and Monocle via the Monocle Gateway. Just ask Alexa to show you one of your named cameras that have been configured to use the Monocle Gateway service.
+
+You should see the named camera displayed in the Monocle Gateway service command console followed by some details logging information as well as the camera stream displayed on your Alexa device.
+
+-------------------------------------------------
+INITIALIZE RTSP STREAM:  Kitchen
+-------------------------------------------------
+ - NAME  : Kitchen
+ - LABEL : PRIMARY
+ - URL   : rtsp://192.168.1.251:554/cam/realmonitor?channel=1&subtype=0
+ - UUID  : STREAM:99d01a23-c6sd-46-bb11-v1d9edda4523
+ - SESS  : e28ba6f0-3c2a-481e-a715-4f989c615a0a
+ - MODIF : Thu May 17 2018 16:38:55 GMT-0400 (Eastern Daylight Time)
+-------------------------------------------------
+
+2018-06-08T18:48:54.971Z [INFO]  [10.1.2.217:40172 <BJkj18ulm>] RTSP CLIENT SOCKET CONNECTED
+2018-06-08T18:48:55.103Z [INFO]  [10.1.2.217:40172 <BJkj18ulm>] RTSP CLIENT ATTACHED TO STREAM: Kitchen (STREAM:99d01a23-c6sd-46-bb11-v1d9edda4523)
+2018-06-08T18:48:55.120Z [INFO]  [10.1.2.217:40172 <BJkj18ulm>] RTSP ENDPOINT SOCKET CONNECTED {192.168.1.251:554}
+2018-06-08T18:48:55.130Z [DEBUG] [10.1.2.217:40172 <BJkj18ulm>] [CLIENT REQUEST]  --> [DESCRIBE] rtsp://c5b4w3q2-bv4f-4sdf9-dsf-28a852ecae54.mproxy.io:443/STREAM:99d01a23-c6sd-46-bb11-v1d9edda4523?session=e28ba6f0-3c2a-481e-a715-4f989c615a0a
+...
+Once you have successfully tested your cameras, you can exit the log tail by pressing CTRL-C (you may have to press it several times).
+
+Service/Daemon Management
+The following commands can be executed in start, stop and restart the Monocle Gateway service daemon. You must run the command with sudo privileges.
+
+Start the Monocle Gateway service:
+
+sudo monocle-gateway --start
+Alternatively, you can also use the following native command:
+sudo systemctl start monocle-gateway
+Stop the Monocle Gateway service:
+
+sudo monocle-gateway --stop
+Alternatively, you can also use the following native command:
+sudo systemctl stop monocle-gateway
+Restart the Monocle Gateway service:
+
+sudo monocle-gateway --restart
+Alternatively, you can also use the following native command:
+sudo systemctl restart monocle-gateway
+Get the Status of the Monocle Gateway service:
+
+sudo monocle-gateway --status
+Alternatively, you can also use the following native command:
+sudo systemctl status monocle-gateway
+Enable the Monocle Gateway service on system boot:
+
+sudo monocle-gateway --enable
+Alternatively, you can also use the following native command:
+sudo systemctl enable monocle-gateway
+Disable the Monocle Gateway service on system boot:
+
+sudo monocle-gateway --disable
+Alternatively, you can also use the following native command:
+sudo systemctl disable monocle-gateway
+Logging
+If running the Monocle Gateway as a systemd service the application will write its output to the journald service.
+
+To monitor ("tail") the log file while the service is running you can use the following command:
+
+sudo monocle-gateway --tail
+Alternatively, you can also use the following native command:
+sudo journalctl -f -u monocle-gateway
+Removal Instructions
+Uninstalling and removing the Monocle Gateway from the computer is very simple. You can use the dpkg utility to automate the remove of the Monocle Gateway service. This script will delete the executable binaries on the system, disable and remove the systemd service configuration and remove the monocle system user account.
+
+sudo dpkg --remove monocle-gateway
+Lastly you can optionally remove the monocle.token file, any custom monocle configuration files and monocle system configuration directory if you don't plan on re-using it in the future:
+
+sudo rm -R /etc/monocle
