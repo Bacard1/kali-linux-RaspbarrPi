@@ -198,3 +198,7 @@ sudo dpkg --remove monocle-gateway
 Lastly you can optionally remove the monocle.token file, any custom monocle configuration files and monocle system configuration directory if you don't plan on re-using it in the future:
 
 sudo rm -R /etc/monocle
+
+
+------------TOKEN--------------
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjOGY1NGQ4YS05MzkyLTRlYzQtOTNhNi05ZjVmODc3YjliYjUiLCJpc3MiOiJtb25vY2xlIiwicm9sZSI6IkFQSSIsInN1YiI6IlU6YTczMzllZTQtNzY2OS00OTlmLWE5NmMtMDZkMjVhOGJhNjQxIiwiYXVkIjoiYXBpIiwiaWF0IjoxNjYxOTI1OTExfQ.aWS5kq7n5zzWvoRcLhx6xltWi7_iHzjhPBRueiK6u5Y
