@@ -1,0 +1,20 @@
+-------------------------------------HOME ASISTANT INSTALL----------------------------------------
+
+https://github.com/home-assistant/core/pkgs/container/aarch64-homeassistant
+
+docker pull ghcr.io/home-assistant/aarch64-homeassistant:2022.10.0.dev20220902
+
+
+Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.
+
+Check out home-assistant.io for a demo, installation instructions, tutorials and documentation.
+
+The system is built using a modular approach so support for other devices or actions can be implemented easily. See also the section on architecture and the section on creating your own components.
+
+If you run into issues while using Home Assistant or during development of a component, check the Home Assistant help section of our website for further help and information.
+
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+
