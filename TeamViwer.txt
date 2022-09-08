@@ -18,3 +18,4 @@ Installing TeamViewer Host:
 sudo apt install ./teamviewer-host_12.x.yyy_[arch].deb
 
 
+https://pimylifeup.com/raspberry-pi-teamviewer/
