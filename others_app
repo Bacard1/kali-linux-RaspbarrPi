@@ -1,10 +1,19 @@
+---RPI Imager
+sudo apt update
+sudo apt install rpi-imager
+
+
+
+
 --- Pi Apps
 wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
 
 --- BG Language pack
 sudo dpkg-reconfigure locales 
 
---- Chasova sona
+-
+
+-- Chasova sona
 sudo dpkg-reconfigure tzdata
 
 ---LibreOffice 
