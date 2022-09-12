@@ -14,7 +14,7 @@ sudo raspi-config
   --Jes
 sudo apt update && sudo apt install-imager
 sudo cd /boot
-sudo nano config.txt
+sudo nano /boot/config.txt
   -- dobavqme v kraq 
   dtoverlay=VC4-fkms-v3d
   max_framebuffers=2
