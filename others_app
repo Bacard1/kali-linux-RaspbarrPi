@@ -24,6 +24,10 @@ sudo apt install ./rpi-imager*.deb
 
 
 
+---Chromium
+sudo apt-get install Chromium
+
+
 
 
 --- Pi Apps
