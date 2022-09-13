@@ -26,3 +26,14 @@ sudo nano /boot/config.txt
   hdmi_ignore_edid_audio=1
   hdmi_ignore_edid_audio=0
   -sud-bcm2835.enable_hdmi=0
+
+
+
+--- Video Decode using Hardware Acceleration
+
+sudo apt-get update
+sudo apt-get upgrade
+
+
+sudo apt-get install libgles2-mesa libgles2-mesa-dev xorg-dev
+
