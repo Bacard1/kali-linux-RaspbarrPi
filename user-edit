@@ -1,0 +1,4 @@
+---Edit username
+usermod -l dpasev-admin kali
+
+sudo passwd USERNAME
