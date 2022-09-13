@@ -1,0 +1,6 @@
+---Da ne se prilaga predi da e konfigurirano potrebitelsko ime i parola
+
+
+sudo apt-get install -y xorg gnome gnome-shell
+sudo apt install -y gnome-shell
+sudo apt install -y rpi-chromium-mods
