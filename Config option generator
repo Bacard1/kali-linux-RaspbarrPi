@@ -1,0 +1,6 @@
+https://picockpit.com/raspberry-pi/overclock-raspberry-pi/
+
+force_turbo=1
+over_voltage=8
+arm_freq=2147
+gpu_freq=750
