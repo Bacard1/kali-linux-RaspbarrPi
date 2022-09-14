@@ -1,0 +1,14 @@
+cd (tam deto shte instalirash)
+
+
+
+git clone --depth 1 https://github.com/raspberrypi/rpi-imager
+
+
+
+cd rpi-imager
+mkdir -p build
+cd build
+cmake ../src
+make
+sudo make install
