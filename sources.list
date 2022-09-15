@@ -1,0 +1,16 @@
+#deb http://http.kali.org/kali kali-last-snapshot main contrib non-free
+#deb-src http://http.kali.org/kali kali-rolling main contrib non-free
+
+
+deb http://deb.debian.org/debian buster main contrib non-free
+deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb http://deb.debian.org/debian buster-updates main contrib non-free
+# Uncomment deb-src lines below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://deb.debian.org/debian buster main contrib non-free
+#deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+#deb-src http://deb.debian.org/debian buster-updates main contrib non-free
+
+#Buster
+deb http://deb.debian.org/debian bullseye main contrib non-free
+deb http://security.debian.org/debian-security bullseye-security main
+deb http://deb.debian.org/debian bullseye-updates main contrib non-free
