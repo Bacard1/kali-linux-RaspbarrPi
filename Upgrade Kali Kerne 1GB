@@ -1,0 +1,83 @@
+
+
+
+sudo apt-get install kali-tweaks
+
+
+dpkg -l \
+  | grep ffuf
+  
+  
+sudo apt install -y ffuf/kali-bleeding-edge
+  
+
+dpkg -l \
+  | grep ffuf
+
+
+  curl -s -L 'http://http.kali.org/kali/dists/kali-bleeding-edge/main/binary-amd64/Packages' \
+  | awk -F ': ' '/^Package: /{print $2}'
+  
+  
+  curl -s -L 'http://http.kali.org/kali/dists/kali-bleeding-edge/main/binary-amd64/Packages' \
+  | awk -F ': ' '/^Package: /{print $2}' \
+  | wc -l
+78
+
+
+curl -s -L 'http://http.kali.org/kali/dists/kali-experimental/main/binary-amd64/Packages' \
+  | awk -F ': ' '/^Package: /{print $2}' \
+  | wc -l
+192
+
+
+
+curl -s -L 'http://http.kali.org/kali/dists/kali-rolling/main/binary-amd64/Packages' \
+  | awk -F ': ' '/^Package: /{print $2}' \
+  | wc -l
+59518
+
+
+
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8888
+
+
+sudo apt-get install authbind
+
+uname -r
+
+docker run --rm --interactive --tty kalilinux/kali-rolling:latest uname -r
+
+sudo apt-get install kali-linux-large
+
+sudo apt update && sudo apt install -y ghidra code-oss
+
+
+
+mv ~/.config/xfce4{,-$(date +%Y.%m.%d-%H.%M.%S)}
+mv ~/.config/qterminal.org{,-$(date +%Y.%m.%d-%H.%M.%S)}
+mv ~/.config/qt5ct{,-$(date +%Y.%m.%d-%H.%M.%S)}
+mv ~/.config/Thunar{,-$(date +%Y.%m.%d-%H.%M.%S)}
+
+cp -rbi /etc/skel/. ~
+
+xfce4-session-logout --reboot --fast
+
+
+
+
+sudo nano /boot/config.txt
+			xfce4-session-logout --fast
+			
+sudo apt-get install kali-community-wallpapers
+sudo apt-get install kali-wallpapers-legacy
+
+
+echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" | sudo tee /etc/apt/sources.list
+sudo apt update && sudo apt -y full-upgrade
+for x in xfce4 qterminal.org qt5ct Thunar; do mv ~/.config/$x{,-$(date +%Y.%m.%d-%H.%M.%S)}; done
+
+
+cp -rbi /etc/skel/. 
+sudo reboot -f
+
