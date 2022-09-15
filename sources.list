@@ -2,15 +2,38 @@
 #deb-src http://http.kali.org/kali kali-rolling main contrib non-free
 
 
+#Debian
 deb http://deb.debian.org/debian buster main contrib non-free
 deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb http://deb.debian.org/debian buster-updates main contrib non-free
 # Uncomment deb-src lines below then 'apt-get update' to enable 'apt-get source'
-#deb-src http://deb.debian.org/debian buster main contrib non-free
-#deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
-#deb-src http://deb.debian.org/debian buster-updates main contrib non-free
+deb-src http://deb.debian.org/debian buster main contrib non-free
+deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 
 #Buster
 deb http://deb.debian.org/debian bullseye main contrib non-free
 deb http://security.debian.org/debian-security bullseye-security main
 deb http://deb.debian.org/debian bullseye-updates main contrib non-free
+deb-src http://deb.debian.org/debian bullseye main contrib non-free
+deb-src http://security.debian.org/debian-security bullseye-security main
+deb-src http://deb.debian.org/debian bullseye-updates main contrib non-free
+
+
+#Paketquellen ändern
+deb http://mirrordirector.raspbian.org/raspbian wheezy main contrib non-free firmware rpi
+deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+deb-src http://mirrordirector.raspbian.org/raspbian wheezy main contrib non-free>
+deb-src http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-fre>
+
+
+#Kali Main Branch
+deb http://http.kali.org/kali kali-rolling main contrib non-free 
+deb http://http.kali.org/kali kali-last-snapshot main contrib non-free
+deb http://http.kali.org/kali kali-experimental main contrib non-free
+deb http://http.kali.org/kali kali-bleeding-edge main contrib non-free
+deb-src http://http.kali.org/kali kali-rolling main contrib non-free 
+deb-src http://http.kali.org/kali kali-last-snapshot main contrib non-free
+deb-src http://http.kali.org/kali kali-experimental main contrib non-free
+deb-src http://http.kali.org/kali kali-bleeding-edge main contrib non-free
+
