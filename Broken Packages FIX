@@ -32,3 +32,10 @@ sudo mv /tmp/libc-bin.* /var/lib/dpkg/info/
 sudo apt install libc-bin -y
 sudo mv /var/lib/dpkg/info/libc-bin.* /tmp/
 sudo apt install libc-bin -y
+
+
+
+
+---------boot log
+dmesg
+
