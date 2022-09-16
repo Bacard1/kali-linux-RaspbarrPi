@@ -18,3 +18,12 @@ sudo rm /var/cache/apt/archives/lock
 sudo rpm -Va
 
 sudo dnf --refresh reinstall PACKAGE_NAME
+
+
+
+
+sudo mv /var/lib/dpkg/info/libc-bin.* /tmp/
+sudo dpkg --remove --force-remove-reinstreq libc-bin
+sudo dpkg --purge libc-bin
+sudo apt install --reinstall libc-bin
+sudo mv /tmp/libc-bin.* /var/lib/dpkg/info/
