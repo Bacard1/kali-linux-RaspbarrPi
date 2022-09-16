@@ -1,0 +1,16 @@
+dockerd
+
+
+rm -rf /var/lib/docker
+
+sudo nano /etc/docker/daemon.json
+{
+    "graph": "/mnt/docker-data",
+    "storage-driver": "overlay"
+}
+
+
+
+    sudo reboot
+
+    systemctl daemon-reload && systemctl enable docker && systemctl start docker
