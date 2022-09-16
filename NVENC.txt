@@ -1,3 +1,5 @@
+https://www.nvidia.com/content/DriverDownload-March2009/confirmation.php?url=/XFree86/aarch64/460.80/NVIDIA-Linux-aarch64-460.80.run&lang=us&type=TITAN
+
 
 sudo apt-get build-dep ffmpeg &&
 git clone https://anonscm.debian.org/git/pkg-multimedia/ffmpeg.git &&
