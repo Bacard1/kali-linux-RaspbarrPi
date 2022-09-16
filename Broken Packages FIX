@@ -27,3 +27,8 @@ sudo dpkg --remove --force-remove-reinstreq libc-bin
 sudo dpkg --purge libc-bin
 sudo apt install --reinstall libc-bin
 sudo mv /tmp/libc-bin.* /var/lib/dpkg/info/
+
+
+sudo apt install libc-bin -y
+sudo mv /var/lib/dpkg/info/libc-bin.* /tmp/
+sudo apt install libc-bin -y
