@@ -1,3 +1,8 @@
+---Create folder
+mkdir
+
+
+
 ---RPI Imager
 sudo apt update
 sudo apt install rpi-imager
