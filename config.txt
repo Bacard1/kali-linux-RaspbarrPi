@@ -82,18 +82,16 @@ kernel=kernel8l-alt.img
 [all]
 dtoverlay=vc4-fkms-v3d
 # Tell firmware to go 64-bit mode
-#arm_64bit=1
-#enable_uart=1
-#core_freq=250
+arm_64bit=1
+enable_uart=1
+core_freq=250
 #dtoverlay=pi3-miniuart-bt 
-#enable_uart=1
-#dtoverlay=VC4-fkms-v3d
-#max_framebuffers=2
-#gpu_mem_1024
-#arm_control=0x200
-#aver_voltage=6
-#arm_freq=2000
-#gpu_freq=600
+enable_uart=1
+dtoverlay=VC4-fkms-v3d
+max_framebuffers=2
+gpu_mem_1024
+arm_control=0x200
+aver_voltage=6
 hdmi_ignore_edid_audio=1
 hdmi_ignore_edid_audio=0
 sud-bcm2835.enable_hdmi=0
