@@ -1,7 +1,7 @@
 cd (tam deto shte instalirash)
 
 
-
+sudo su
 git clone --depth 1 https://github.com/raspberrypi/rpi-imager
 
 
