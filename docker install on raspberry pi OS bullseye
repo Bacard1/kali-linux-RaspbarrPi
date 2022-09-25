@@ -1,0 +1,52 @@
+docker install on raspberry pi OS bullseye
+Sun Nov 14, 2021 3:51 pm
+
+The easiest way is to add the Debian Bullseye repo. This method is NOT Recommended, it can break your system.
+But is also just works.
+
+Download the Debian keyring:
+Code: Select all
+
+ wget http://ftp.us.debian.org/debian/pool/main/d/debian-keyring/debian-keyring_2021.07.26_all.deb
+Install it by doing:
+Code: Select all
+
+sudo apt install /home/pi/debian-keyring_2021.07.26_all.deb
+Edit your sources.list and add the Debian repos:
+Code: Select all
+
+ sudo nano /etc/apt/sources.list
+Add this:
+Code: Select all
+
+# Bullseye https://www.debian.org/releases/bullseye/arm64/release-notes/ch-upgrading.en.html
+deb https://deb.debian.org/debian/ bullseye main contrib non-free
+# deb-src https://deb.debian.org/debian/ bullseye main contrib non-free
+
+# Bullseye Security https://www.debian.org/releases/bullseye/arm64/release-notes/ch-information.en.html#security-archive
+deb https://deb.debian.org/debian-security bullseye-security main contrib non-free
+# deb-src https://deb.debian.org/debian-security bullseye-security main contrib non-free
+
+# Bullseye Updates https://wiki.debian.org/DebianBullseye#FAQ 
+# https://wiki.debian.org/StableUpdates All packages from stable-updates will be included in point releases.
+deb https://deb.debian.org/debian bullseye-updates main contrib non-free
+# deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free
+
+# Bullseye Backports  https://backports.debian.org/
+# Backports are _not_ enabled by default.
+# Enable them by uncommenting the following line:
+# deb https://deb.debian.org/debian/ bullseye-backports main contrib non-free
+# deb-src https://deb.debian.org/debian/ bullseye-backports main contrib non-free
+
+# Bullseye Proposed Updates https://wiki.debian.org/StableProposedUpdates
+# Stable-proposed-updates is an apt repository that contains the files that are being prepared for the next Debian/Stable point release.
+# deb https://deb.debian.org/debian/ bullseye-proposed-updates main contrib non-free 
+# deb-src https://deb.debian.org/debian/ bullseye-proposed-updates main contrib non-free
+Then do
+Code: Select all
+
+ sudo apt update
+followed by:
+Code: Select all
+
+sudo apt install docker.io docker-compose rootlesskit docker-registry
