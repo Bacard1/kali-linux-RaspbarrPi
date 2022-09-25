@@ -1,0 +1,91 @@
+How to Check If the Docker Daemon or a Container Is Running
+JAMES WALKER
+
+
+
+AUG 25, 2021, 8:00 AM EDT | 3 MIN READ
+Illustration showing the Docker logo
+
+Docker uses a daemon-based architecture where the CLI connects to a long-lived process running separately on your machine or a remote host. CLI commands won’t work and your containers will usually go offline if the daemon stops.
+
+Here’s how to check whether Docker’s daemon is up so you can diagnose issues with containers and the docker command. When the daemon’s not running, you’ll see a “can’t connect to Docker daemon” message each time you use the docker CLI.
+
+Checking With Systemctl
+You can check Docker’s status with systemctl on distributions that use Systemd for service management. This covers the majority of popular operating systems including Debian, Ubuntu, CentOS, and Red Hat.
+
+sudo systemctl status docker
+Advertisement
+
+Check what’s displayed under “Active.” If you see active (running) in green, the Docker daemon is running and your containers should be up.
+
+image of checking the Docker daemon status with Systemd
+
+An active state of inactive indicates the service has stopped. Try to bring it up by running sudo systemctl start docker. The status should change to active (running) after the daemon starts.
+
+If you see a status of failed in red, the daemon couldn’t start due to an error. You should review the service’s startup logs shown later in the systemctl command output as these usually contain hints that let you work out what went wrong.
+
+When there’s no obvious resolution available, manually start the daemon in debugging mode to get more information on its startup routine.
+
+sudo dockerd --debug
+Rebooting your host machine or restarting the Docker service with systemctl restart docker can help alleviate transient issues too.
+
+Inspecting Process Details
+Another way to check for a running Docker daemon is by inspecting its process ID file. The daemon writes its process ID to /var/run/docker.pid each time it starts up. When this file exists, Docker should be running and ready for CLI connections.
+
+cat /var/run/docker.pid
+You can use this technique to create programmatic scripts that check whether the daemon’s alive. Reading the file gives you the ID which you can use with tools like top to get more information about the Docker process:
+
+cat /var/run/docker.pid
+
+# process id = 1000
+
+top -p 1000
+image of Docker daemon process details in "top"
+
+You can also get the process ID with thepidofcommand. This accepts a process name and returns the first matching ID:
+
+pidof dockerd
+
+# process id = 1000
+
+# view information with top
+top -p `pidof dockerd`
+Advertisement
+
+There’s an active Docker daemon on your machine if top matches a dockerd process. This can be more reliable than looking for docker.pid – if the daemon crashes, docker.pid could get left behind after the process is gone.
+
+Handling Stuck Process Files
+The daemon will refuse to restart when a PID file is present. This could get you stuck in a restart loop if the file’s actually orphaned from a previous run. You’ll see this message when running dockerd:
+
+failed to start daemon: pid file found, ensure docker is not running or delete /var/run/docker.pid
+Use pidof dockerd to make sure Docker’s actually stopped. Proceed if the command emits no output, confirming there’s no running process.
+
+Run sudo rm /var/run/docker.pid to delete the old process ID file. The daemon should now start successfully next time you run dockerdor service docker start.
+
+PID file issues are commonly encountered when you snapshot a virtual machine and then create a new instance from the image. The process file will be included in the snapshot, causing the Docker daemon in the new VM to think it’s already running.
+
+Checking Individual Containers
+The status of individual containers is accessed via the docker ps command. This emits a table containing the details of all currently running containers.
+
+docker ps
+image of "docker ps" output
+
+Combine the docker ps command with grep to easily check whether a specific container is running by ID or name:
+
+docker ps | grep my-container-name
+Now the output will be filtered to show the container you’ve selected. There’ll be no records if the container isn’t running.
+
+image of filtering "docker ps" output with grep
+
+Advertisement
+
+Stopped containers are displayed using docker ps -a. A stopped container can be started with the docker start command:
+
+docker start my-container
+The container will then move into the regular docker ps output. You can stop it again with docker stop my-container.
+
+Conclusion
+You’ve got several options to consider when you want to know whether Docker is running. There’s your operating system’s service manager, the docker.pid file, and regular process inspection tools such as top and pidof.
+
+When it comes to individual containers, docker ps provides the list of everything that’s currently running on your host. More comprehensive information on the state of any container can be gleaned with docker inspect container-name which provides details of network configuration, volumes, and labels in JSON format.
+
