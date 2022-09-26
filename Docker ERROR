@@ -79,6 +79,7 @@ The new machine did not know of this user. Changing to User=root solved this pro
 
 
 ---network.service
+root@debU:~# apt search libjansson
 
 
 
