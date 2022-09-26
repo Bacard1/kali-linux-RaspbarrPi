@@ -1,3 +1,5 @@
+---doker.service 1
+
 dockerd
 
 
@@ -8,6 +10,75 @@ sudo nano /etc/docker/daemon.json
     "graph": "/mnt/docker-data",
     "storage-driver": "overlay"
 }
+---doker.service 2
+First, if this is a custom service, it belongs in /etc/systemd/system. /lib/systemd is intended for package-provided files.
+
+Second, the service is likely crashing and systemd is attempted to restart it repeatedly, so you need to figure out why it's crashing. Check the service logs with:
+
+journalctl -e -u swatchWATCH
+It's possible there will be some extra detail in the main journal:
+
+journalctl -e
+Finally, check to see it runs directly on the CLI ok:
+
+/usr/bin/swatch --config-file=/home/kristjan/.swatchrc --input-record-separator="\n \n " --tail-file=/var/log/snort/alert --daemon
+
+I see you are using a --daemon option. That's often a mistake with systemd. Systemd daemonizes for you. Try removing this option.
+
+If all else fails, review what changed since yesterday when it was working.
+
+Share
+Improve this answer
+Follow
+answered May 8, 2019 at 17:10
+Mark Stosberg's user avatar
+Mark Stosberg
+7,03011 gold badge3131 silver badges4242 bronze badges
+Note that journalctl -u UNIT does not reliably display the dying messages of a unit, because there's no way to determine the origin cgroup of a message if the origin process is already dead. – 
+Ferenc Wágner
+ May 9, 2019 at 12:25
+Add a comment
+
+Report this ad
+
+4
+
+The quick solution to "systemd[1]: SERVICE: Start request repeated too quickly" is
+
+systemctl reset-failed SERVICE
+systemctl start SERVICE
+systemctl status SERVICE
+Share
+Improve this answer
+Follow
+answered Jun 14, 2021 at 15:30
+sizif's user avatar
+sizif
+5133 bronze badges
+Can you explain what reset-failed does? – 
+annahri
+ Oct 8, 2021 at 22:34
+2
+@annahri man systemctl: "the start rate limit counter is reset to zero". "if a unit's start limit (as configured with StartLimitIntervalSec=/StartLimitBurst=) is hit and the unit refuses to be started again, use this command to make it startable again." – 
+sizif
+ Oct 10, 2021 at 19:27 
+Add a comment
+
+0
+
+In my case the error message was somewhat misleading. The reason for the failure resulted from a copy between machines. The line
+
+User=my_user 
+in my service configuration file /etc/systemd/system/infinite_script.service was the culprit.
+
+The new machine did not know of this user. Changing to User=root solved this problem.
+
+
+
+
+
+
+---network.service
 
 
 
